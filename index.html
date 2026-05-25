@@ -125,21 +125,30 @@ document.getElementById("yes").onclick = () => {
 };
 
 function finish(){
+
+    // 👉 Werte holen
+    const datum = document.querySelector('input[type="date"]').value;
+    const zeit = document.querySelector("select").value;
+
+    const jetzt = new Date();
+    const timestamp = jetzt.toLocaleString("de-DE");
+
+    // 👉 Discord Nachricht
+    fetch("https://discord.com/api/webhooks/1508560395135352903/XxYbf-27ajSXod8yuqeLO_ZntayxQDgtKir7q6RYHei-b_3in7XGzLKl64d_TEFavSzi", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            content: `💖 NEUE DATE ANTWORT\n📅 Ausgewähltes Datum: ${datum}\n⏰ Zeit: ${zeit}\n🕒 Gesendet: ${timestamp}`
+        })
+    });
+
     document.body.innerHTML = `
     <div class="card">
-        <h1>❤️ SIE HAT JA GESAGT ❤️</h1>
+        <h1>❤️ GESPEICHERT ❤️</h1>
         <p>ich warte 😊</p>
     </div>`;
-}
-
-for(let i=0;i<25;i++){
-    let flower=document.createElement("div");
-    flower.className="flower";
-    flower.innerHTML="🌸";
-    flower.style.left=Math.random()*100+"vw";
-    flower.style.animationDuration=(5+Math.random()*8)+"s";
-    flower.style.animationDelay=Math.random()*5+"s";
-    document.body.appendChild(flower);
 }
 </script>
 
